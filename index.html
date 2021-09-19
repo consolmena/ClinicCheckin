@@ -11,7 +11,7 @@
 
 <body>
 	<div style="width: 500px" id="reader"></div>
-	<button onclick="buttonClick()" id="vibrateButton">Vibrate</button>
+	<button onclick="startCheckin()" id="startCheckinButton">Start Check-In Process</button>
 
 <div id="data" style="display: none">
 <div>
@@ -27,9 +27,7 @@
 	<!-- your content here... -->
 	<script src="js/html5-qrcode.min.js"></script>
 	<script type="text/javascript">
-		function buttonClick() {
-			window.navigator.vibrate(500);
-		}
+		
 
 		const urlParams = new URLSearchParams(window.location.search);
 		const myParam = urlParams.get('caseId');	
@@ -53,10 +51,13 @@
 		    document.getElementById("data").style.display = "inline";
 			document.getElementById("reader").style.display = "none";
 		};
-		const config = { fps: 10, qrbox: 400 };
-		html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
-
-		setTimeout(() => { document.getElementById("vibrateButton").click(); }, 500)
+		
+		
+		function startCheckin() {
+			const config = { fps: 10, qrbox: 400 };
+			html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
+			document.getElementById('startCheckinButton').style.display = "none";
+		}
 	</script>
 </body>
 </html>
