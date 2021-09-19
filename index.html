@@ -11,6 +11,7 @@
 
 <body>
 	<div style="width: 500px" id="reader"></div>
+	<button onclick="buttonClick()" id="vibrateButton">Vibrate</button>
 
 <div id="data" style="display: none">
 <div>
@@ -26,11 +27,22 @@
 	<!-- your content here... -->
 	<script src="js/html5-qrcode.min.js"></script>
 	<script type="text/javascript">
+		function buttonClick() {
+			window.navigator.vibrate(500);
+		}
+
 		const urlParams = new URLSearchParams(window.location.search);
 		const myParam = urlParams.get('caseId');	
 		const html5QrCode = new Html5Qrcode("reader");
 
+		// enable vibration support
+		navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
 		const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+			if (navigator.vibrate) {
+				window.navigator.vibrate(500);
+			}
+
 		    	html5QrCode.stop();
 
 			let qrCodeData = JSON.parse(decodedText);
@@ -38,7 +50,7 @@
 			document.getElementById("clinicName").innerHTML = qrCodeData.clinicName;
 			document.getElementById("patientId").innerHTML = myParam;
 
-		    	document.getElementById("data").style.display = "inline";
+		    document.getElementById("data").style.display = "inline";
 			document.getElementById("reader").style.display = "none";
 		};
 		const config = { fps: 10, qrbox: 400 };
