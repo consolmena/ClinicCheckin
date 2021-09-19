@@ -36,10 +36,10 @@
 			document.getElementById("clinicName").innerHTML = qrCodeData.clinicName;
 			document.getElementById("patientId").innerHTML = myParam;
 
-			if (!navVibrate) {
+			//if (!navVibrate) {
 				window.navigator.vibrate([300, 100, 200, 50, 300]);
 				navVibrate = true;
-			}
+			//}
 		    html5QrCode.stop();
 		};
 		const config = { fps: 10, qrbox: 400 };
