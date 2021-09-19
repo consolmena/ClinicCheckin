@@ -37,7 +37,7 @@
 			document.getElementById("patientId").innerHTML = myParam;
 
 			if (!navVibrate) {
-				navigator.vibrate(300);
+				window.navigator.vibrate([300, 100, 200, 50, 300]);
 				navVibrate = true;
 			}
 		    //html5QrCode.stop();
