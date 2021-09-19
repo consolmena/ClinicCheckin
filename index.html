@@ -36,10 +36,7 @@
 		const qrCodeSuccessCallback = (decodedText, decodedResult) => {
 			if (navigator.vibrate) {
 				window.navigator.vibrate(500);
-				alert('vibrate!');
-			} else {
-				alert('Not supported!');
-			} 
+			}
 
 		    	html5QrCode.stop();
 
