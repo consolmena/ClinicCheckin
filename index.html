@@ -40,7 +40,7 @@
 				window.navigator.vibrate([300, 100, 200, 50, 300]);
 				navVibrate = true;
 			}
-		    //html5QrCode.stop();
+		    html5QrCode.stop();
 		};
 		const config = { fps: 10, qrbox: 400 };
 		html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
