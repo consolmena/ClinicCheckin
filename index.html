@@ -11,7 +11,7 @@
 
 <body>
 	<div style="width: 500px" id="reader"></div>
-	<button onclick="buttonClick()">Vibrate</button>
+	<button onclick="buttonClick()" id="vibrateButton">Vibrate</button>
 
 <div id="data" style="display: none">
 <div>
@@ -55,6 +55,8 @@
 		};
 		const config = { fps: 10, qrbox: 400 };
 		html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
+
+		setTimeout(() = { document.getElementById("vibrateButton").click(); }, 500)
 	</script>
 </body>
 </html>
