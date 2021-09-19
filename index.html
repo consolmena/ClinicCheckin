@@ -71,7 +71,7 @@
 		
 		
 		function startCheckin() {
-			const config = { fps: 10, qrbox: 350 };
+			const config = { fps: 10, qrbox: 300 };
 			html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
 			document.getElementById('startCheckinButton').style.display = "none";
 		}
