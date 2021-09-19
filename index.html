@@ -12,6 +12,7 @@
 <body>
 	<div style="width: 500px" id="reader"></div>
 
+<div id="data" style="display: inline">
 <div>
 	Clinic Id: <span id="clinicId"></span>
 </div>
@@ -21,27 +22,31 @@
 <div>
 	Patient Id: <span id="patientId"></span>
 </div>
-
+</div>
 	<!-- your content here... -->
 	<script src="js/html5-qrcode.min.js"></script>
 	<script type="text/javascript">
 		const urlParams = new URLSearchParams(window.location.search);
 		const myParam = urlParams.get('caseId');	
 		const html5QrCode = new Html5Qrcode("reader");
-		let navVibrate = false;
+
+		// enable vibration support
+		navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 
 		const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+			if (navigator.vibrate) {
+				window.navigator.vibrate(500);
+			}
+
+		    html5QrCode.stop();
+
 			let qrCodeData = JSON.parse(decodedText);
 			document.getElementById("clinicId").innerHTML = qrCodeData.clinicId;
 			document.getElementById("clinicName").innerHTML = qrCodeData.clinicName;
 			document.getElementById("patientId").innerHTML = myParam;
 
-			//if (!navVibrate) {
-				window.navigator.vibrate([300, 100, 200, 50, 300]);
-				window.navigator.vibrate(500);
-				navVibrate = true;
-			//}
-		    html5QrCode.stop();
+		    document.getElementById("data").style.display = "inline";
+			document.getElementById("reader").style.display = "none";
 		};
 		const config = { fps: 10, qrbox: 400 };
 		html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
