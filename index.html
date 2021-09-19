@@ -12,7 +12,7 @@
 <body>
 	<div style="width: 500px" id="reader"></div>
 
-<div id="data" style="display: inline">
+<div id="data" style="display: none">
 <div>
 	Clinic Id: <span id="clinicId"></span>
 </div>
@@ -36,9 +36,11 @@
 		const qrCodeSuccessCallback = (decodedText, decodedResult) => {
 			if (navigator.vibrate) {
 				window.navigator.vibrate(500);
-			}
+			} else {
+				alert('Not supported!');
+			} 
 
-		    html5QrCode.stop();
+		    	html5QrCode.stop();
 
 			let qrCodeData = JSON.parse(decodedText);
 			document.getElementById("clinicId").innerHTML = qrCodeData.clinicId;
