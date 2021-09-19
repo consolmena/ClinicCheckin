@@ -28,12 +28,18 @@
 		const urlParams = new URLSearchParams(window.location.search);
 		const myParam = urlParams.get('caseId');	
 		const html5QrCode = new Html5Qrcode("reader");
+		let navVibrate = false;
 
 		const qrCodeSuccessCallback = (decodedText, decodedResult) => {
 			let qrCodeData = JSON.parse(decodedText);
 			document.getElementById("clinicId").innerHTML = qrCodeData.clinicId;
 			document.getElementById("clinicName").innerHTML = qrCodeData.clinicName;
 			document.getElementById("patientId").innerHTML = myParam;
+
+			if (!navVibrate) {
+				navigator.vibrate(300);
+				navVibrate = true;
+			}
 		    //html5QrCode.stop();
 		};
 		const config = { fps: 10, qrbox: 400 };
