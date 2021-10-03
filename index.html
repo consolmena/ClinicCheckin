@@ -69,8 +69,12 @@
 
 	    	html5QrCode.stop();
 			const qrCodeParams = new URLSearchParams(decodedText);
-			const hospitalId = qrCodeParams.get('id');	
+			const hospitalId = qrCodeParams.get('id');
 			const hospitalName = decodeURIComponent(qrCodeParams.get('name'));
+
+			console.log(JSON.stringify(qrCodeParams));
+			console.log(hospitalId);
+			console.log(hospitalName);
 
 			document.getElementById("hospitalId").innerHTML = hospitalId;
 			document.getElementById("hospitalName").innerHTML = hospitalName;
@@ -81,7 +85,6 @@
 		    document.getElementById("data").style.display = "inline";
 			document.getElementById("reader").style.display = "none";
 		};
-		
 		
 		function startCheckin() {
 			const config = { fps: 10, qrbox: 300 };
