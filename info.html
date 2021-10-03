@@ -6,9 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Welcome</title>
-
 </head>
 <body>
+	<div style="text-align: center">
+		<h3>Welcome to <span class="hospitalName"></span></h3>
+		<p>Please use the link we have sent you to your E-Mail or via SMS to check-in to<span class="hospitalName"></span></p>
+	</div>
+	
+	<script>
+		const urlParams = new URLSearchParams(window.location.search);
+		const hospitalName = urlParams.get('name');
 
+		var hospitalNamePlaceHolders = document.querySelectorAll('.hospitalName');
+		hospitalNamePlaceHolders.forEach(function(element) {
+			element.innerHTML = hospitalName;
+		})
+	</script>
 </body>
 </html>
