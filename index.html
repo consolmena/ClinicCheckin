@@ -35,10 +35,10 @@
 </div>
 <div id="data" style="display: none">
 	<div>
-		Clinic Id: <span id="clinicId"></span>
+		Clinic Id: <span id="hospitalId"></span>
 	</div>
 	<div>
-		Clinic Name: <span id="clinicName"></span>
+		Clinic Name: <span id="hospitalName"></span>
 	</div>
 	<div>
 		Patient Id: <span id="patientId"></span>
@@ -72,8 +72,8 @@
 			const hospitalId = qrCodeParams.get('id');	
 			const hospitalName = decodeURIComponent(qrCodeParams.get('name'));
 
-			document.getElementById("clinicId").innerHTML = hospitalId;
-			document.getElementById("clinicName").innerHTML = hospitalName;
+			document.getElementById("hospitalId").innerHTML = hospitalId;
+			document.getElementById("hospitalName").innerHTML = hospitalName;
 			document.getElementById("patientId").innerHTML = patientId;
 			document.getElementById("bookingId").innerHTML = bookingId;
 			document.getElementById("checkCode").innerHTML = checkCode;
