@@ -68,13 +68,14 @@
 			}
 
 	    	html5QrCode.stop();
-			const qrCodeParams = new URLSearchParams(decodedText);
+			const qrCodeParams = new URL(decodedText).searchParams;
+
+			qrCodeParams.forEach(function(value, key) {
+			  console.log(value, key);
+			});
+
 			const hospitalId = qrCodeParams.get('id');
 			const hospitalName = decodeURIComponent(qrCodeParams.get('name'));
-
-			console.log(JSON.stringify(qrCodeParams));
-			console.log(hospitalId);
-			console.log(hospitalName);
 
 			document.getElementById("hospitalId").innerHTML = hospitalId;
 			document.getElementById("hospitalName").innerHTML = hospitalName;
