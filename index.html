@@ -35,28 +35,25 @@
 </div>
 <div id="data" style="display: none">
 	<div>
-		Clinic Id: <span id="hospitalId"></span>
+		Link Data: <span id="linkData"></span>
 	</div>
 	<div>
-		Clinic Name: <span id="hospitalName"></span>
+		QR-Code Data: <span id="qrCodeData"></span>
 	</div>
-	<div>
-		Patient Id: <span id="patientId"></span>
-	</div>
-	<div>
-		BookingId Id: <span id="bookingId"></span>
-	</div>
-	<div>
-		Check Code: <span id="checkCode"></span>
-	</div>
+	
+	<form id="registerForm" method="POST" action="https://care-cm.int.consol.ae/intg/clinicCheckInWebHook/service"></form>
 </div>
 	<!-- your content here... -->
 	<script src="js/html5-qrcode.min.js"></script>
 	<script type="text/javascript">
+		var form = document.getElementById('registerForm');
+		var submitData = {};
+
 		const urlParams = new URLSearchParams(window.location.search);
-		const patientId = urlParams.get('patientId');
-		const bookingId = urlParams.get('bookingId');
-		const checkCode = urlParams.get('checkCode');
+		const linkData = urlParams.get('data');
+
+		window.document.write("URL-Param 'data': " + linkData);
+
 		const html5QrCode = new Html5Qrcode("reader");
 
 		// enable vibration support
@@ -67,24 +64,24 @@
 				window.navigator.vibrate(500);
 			}
 
-	    	html5QrCode.stop();
+	    html5QrCode.stop();
 			const qrCodeParams = new URL(decodedText).searchParams;
+			console.log(decodedText);
 
-			qrCodeParams.forEach(function(value, key) {
-			  console.log(value, key);
-			});
+			const qrCodeData = qrCodeParams.get('data');
 
-			const hospitalId = qrCodeParams.get('id');
-			const hospitalName = decodeURIComponent(qrCodeParams.get('name'));
+			document.getElementById("linkData").innerHTML = linkData;
+			document.getElementById("qrCodeData").innerHTML = qrCodeData;
 
-			document.getElementById("hospitalId").innerHTML = hospitalId;
-			document.getElementById("hospitalName").innerHTML = hospitalName;
-			document.getElementById("patientId").innerHTML = patientId;
-			document.getElementById("bookingId").innerHTML = bookingId;
-			document.getElementById("checkCode").innerHTML = checkCode;
-
-		    document.getElementById("data").style.display = "inline";
+			document.getElementById("data").style.display = "inline";
 			document.getElementById("reader").style.display = "none";
+
+			submitData = {
+				"linkData": linkData,
+				"qrCodeData": qrCodeData
+			}
+
+			form.dispatchEvent(new Event('submit'));
 		};
 		
 		function startCheckin() {
@@ -92,6 +89,21 @@
 			html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
 			document.getElementById('startCheckinButton').style.display = "none";
 		}
+
+		form.onsubmit = function (e) {
+		  // stop the regular form submission
+		  e.preventDefault();
+
+		  // construct an HTTP request
+		  var xhr = new XMLHttpRequest();
+		  xhr.open(form.method, form.action, true);
+		  xhr.setRequestHeader('Content-Type', 'text/plain');
+		  xhr.setRequestHeader('SECRET_TOKEN', 'con$0lC@reWCheckInHoc12367');
+
+		  const stringifiedData = JSON.stringify(submitData);
+		  submitData = {};
+		  xhr.send(stringifiedData);
+		};
 	</script>
 </body>
 
